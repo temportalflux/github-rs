@@ -23,7 +23,7 @@ impl crate::GithubClient {
 		let builder = builder.body(
 			serde_json::to_string(&Value::Object(
 				[
-					("name".into(), request.name.clone().into()),
+					("name".into(), request.name.into()),
 					("private".into(), request.private.into()),
 					("auto_init".into(), true.into()),
 				]
