@@ -21,7 +21,7 @@ pub struct GithubClient {
 }
 
 impl GithubClient {
-	pub fn new(token: &String, user_agent: &'static str) -> Result<Self, Error> {
+	pub fn new(token: &str, user_agent: &'static str) -> Result<Self, Error> {
 		let mut client = reqwest::Client::builder();
 		let auth_header = format!("Bearer {token}");
 		client = client.default_headers({
