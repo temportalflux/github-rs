@@ -1,0 +1,6 @@
+query FindUser($login:String!) {
+  user(login: $login) {
+    id
+    isViewer
+  }
+}
