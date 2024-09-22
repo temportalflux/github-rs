@@ -13,6 +13,6 @@ futures-util = "0.3"
 serde = "1.0"
 serde_json = "1.0"
 thiserror = "1.0"
-graphql_client = { version = "0.13", features = ["reqwest"] }
-itertools = "0.12"
+graphql_client = { version = "0.14", features = ["reqwest"] }
+itertools = "0.13"
 base64ct = { version = "1.6", features = ["alloc"] }
