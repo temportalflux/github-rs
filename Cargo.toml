@@ -7,12 +7,13 @@ edition = "2021"
 
 [dependencies]
 log = "0.4"
+# waiting for graphql_client 0.15 to include https://github.com/graphql-rust/graphql-client/pull/490
 reqwest = { version = "0.11", features = ["json"] }
-futures = "0.3"
-futures-util = "0.3"
-serde = "1.0"
-serde_json = "1.0"
-thiserror = "1.0"
+futures = "^0.3"
+futures-util = "^0.3"
+serde = "^1.0"
+serde_json = "^1.0"
+thiserror = "^2.0"
 graphql_client = { version = "0.14", features = ["reqwest"] }
 itertools = "0.13"
 base64ct = { version = "1.6", features = ["alloc"] }
