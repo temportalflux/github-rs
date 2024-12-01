@@ -1,0 +1,26 @@
+query FindRepository($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
+    name
+    isPrivate
+    defaultBranchRef {
+      target {
+        __typename
+        oid
+      }
+    }
+    owner {
+      __typename
+      login
+    }
+		object(expression: "HEAD:") {
+			__typename
+			... on Tree {
+				oid
+				entries {
+					name
+					type
+				}
+			}
+		}
+  }
+}
