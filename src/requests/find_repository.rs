@@ -19,7 +19,6 @@ impl GithubClient {
 		);
 		Box::pin(async move {
 			let response: queries::find_repository::ResponseData = query.await?;
-			log::debug!(target: "github", "{response:?}");
 
 			let Some(repo) = response.repository else {
 				return Ok(None);

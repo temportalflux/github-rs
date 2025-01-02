@@ -12,7 +12,6 @@ impl GithubClient {
 		let query = queries::FindUser::post(self.client.clone(), queries::find_user::Variables { login: username });
 		Box::pin(async move {
 			let response = query.await?;
-			log::debug!(target: "github", "{response:?}");
 			let Some(user) = response.user else {
 				return Ok(FindUserResponse::NotFound);
 			};

@@ -24,7 +24,6 @@ impl crate::GithubClient {
 		Box::pin(async move {
 			let response = builder.send().await?;
 			let _data = response.json::<Value>().await?;
-			//log::debug!("{data:?}");
 			Ok(())
 		})
 	}

@@ -80,7 +80,6 @@ impl crate::GithubClient {
 			let object = Value::Object(entries.into_iter().collect::<Map<String, Value>>());
 			serde_json::to_string(&object).unwrap()
 		};
-		log::debug!("{body}");
 		let builder = builder.body(body);
 		Box::pin(async move {
 			#[derive(Deserialize)]

@@ -38,7 +38,6 @@ impl GithubClient {
 		params: SearchRepositoriesParams,
 	) -> LocalBoxFuture<'static, (String, Vec<RepositoryMetadata>)> {
 		let query = params.query.to_string();
-		log::debug!(target: "github", "search query {query:?}");
 		let mut stream = QueryStream::<queries::SearchForRepos>::new(
 			self.client.clone(),
 			queries::search_for_repos::Variables {
@@ -56,7 +55,6 @@ impl GithubClient {
 				repositories.append(&mut page.repositories);
 				viewer = page.viewer;
 			}
-			log::debug!(target: "github", "search result {viewer:?} {repositories:?}");
 			(viewer, repositories)
 		})
 	}
