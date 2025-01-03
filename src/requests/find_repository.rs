@@ -24,6 +24,10 @@ impl GithubClient {
 				return Ok(None);
 			};
 
+			let Some(default_branch_ref) = repo.default_branch_ref else {
+				return Ok(None);
+			};
+
 			// All repositories must be initialized (default branch has contents), otherwise they are ignored
 			let Some(FindRepositoryRepositoryObject::Tree(default_branch_tree)) = repo.object else {
 				return Ok(None);
@@ -46,7 +50,8 @@ impl GithubClient {
 				owner: repo.owner.login,
 				name: repo.name,
 				is_private: repo.is_private,
-				version: repo.default_branch_ref.unwrap().target.oid.to_string(),
+				version: default_branch_ref.target.oid.to_string(),
+				default_branch: default_branch_ref.name,
 				root_trees,
 				tree_id,
 			}));

@@ -33,10 +33,8 @@ impl StreamableQuery<SearchForRepos> for SearchForRepos {
 		use search_for_repos::{
 			SearchForReposSearchNodes as RepoEnum, SearchForReposSearchNodesOnRepositoryObject as Object,
 		};
-		let cursor = Cursor {
-			has_next_page: data.search.page_info.has_next_page,
-			cursor: data.search.page_info.end_cursor,
-		};
+		let page_info = data.search.page_info;
+		let cursor = Cursor::new(page_info.has_next_page, page_info.end_cursor);
 
 		// rust-analyzer cant read the type data for `nodes` for some reason,
 		// use `graphql-client generate --schema-path ./graphql/schema.graphql ./graphql/search_for_repos.graphql`
@@ -53,6 +51,9 @@ impl StreamableQuery<SearchForRepos> for SearchForRepos {
 					continue;
 				};
 				let RepoEnum::Repository(repo) = repo else {
+					continue;
+				};
+				let Some(default_branch_ref) = repo.default_branch_ref else {
 					continue;
 				};
 				// All repositories must be initialized (default branch has contents), otherwise they are ignored
@@ -76,7 +77,8 @@ impl StreamableQuery<SearchForRepos> for SearchForRepos {
 					owner: repo.owner.login,
 					name: repo.name,
 					is_private: repo.is_private,
-					version: repo.default_branch_ref.unwrap().target.oid.to_string(),
+					version: default_branch_ref.target.oid.to_string(),
+					default_branch: default_branch_ref.name,
 					root_trees,
 					tree_id,
 				});

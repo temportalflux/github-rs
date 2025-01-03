@@ -9,6 +9,7 @@ query SearchForRepos($query: String!, $cursor: String, $amount: Int!) {
 				name
 				isPrivate
 				defaultBranchRef {
+					name
 					target {
 						__typename
 						oid

@@ -3,6 +3,7 @@ query FindRepository($owner: String!, $name: String!) {
     name
     isPrivate
     defaultBranchRef {
+			name
       target {
         __typename
         oid

@@ -21,10 +21,8 @@ impl StreamableQuery<FindOrgs> for FindOrgs {
 	}
 
 	fn next(data: find_orgs::ResponseData) -> (Cursor, Self::Item) {
-		let cursor = Cursor {
-			has_next_page: data.viewer.organizations.page_info.has_next_page,
-			cursor: data.viewer.organizations.page_info.end_cursor,
-		};
+		let page_info = data.viewer.organizations.page_info;
+		let cursor = Cursor::new(page_info.has_next_page, page_info.end_cursor);
 
 		let mut output = Vec::new();
 		if let Some(org_nodes) = data.viewer.organizations.nodes {

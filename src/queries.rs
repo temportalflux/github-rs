@@ -1,3 +1,6 @@
+pub mod file_commit_history;
+pub use file_commit_history::FileCommitHistory;
+
 pub mod find_orgs;
 pub use find_orgs::FindOrgs;
 
